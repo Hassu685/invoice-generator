@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f7f4ee;
+  background-image: radial-gradient(circle at 1px 1px, rgba(28, 37, 65, 0.06) 1px, transparent 0);
+  background-size: 22px 22px;
+  color: #1c2541;
+}
+
+/* perforated tear line between form and preview on mobile stacking */
+.perforation {
+  position: relative;
+}
+.perforation::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 0;
+  border-left: 2px dashed rgba(28, 37, 65, 0.18);
+}
+
+.no-print-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.no-print-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(28, 37, 65, 0.2);
+  border-radius: 999px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid #2e7d6b;
+  outline-offset: 2px;
+}
+
+@media print {
+  body {
+    background-image: none;
+  }
+}
