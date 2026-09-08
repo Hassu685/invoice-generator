@@ -1,114 +1,184 @@
-"use client";
-
-import { useRef, useState } from "react";
-import InvoiceForm from "@/components/InvoiceForm";
-import InvoicePreview from "@/components/InvoicePreview";
-import InstallAppButton from "@/components/InstallAppButton";
-import Header from "@/components/Header";
+import Link from "next/link";
+import InvoiceTool from "@/components/InvoiceTool";
 import Footer from "@/components/Footer";
-import { defaultInvoice } from "@/lib/types";
+import Faq, { faqJsonLd } from "@/components/Faq";
+import { articles } from "@/lib/blog";
+import { absoluteUrl, siteConfig } from "@/lib/siteConfig";
+
+export const metadata = {
+  title: "Free Invoice Generator — Create PDF Invoices Online | Ledger",
+  description:
+    "Create professional invoices online for free, customize your invoice, and download it as a PDF without creating an account.",
+  alternates: { canonical: absoluteUrl("/") },
+  openGraph: {
+    title: "Free Invoice Generator — Create PDF Invoices Online | Ledger",
+    description:
+      "Create professional invoices online for free, customize your invoice, and download it as a PDF without creating an account.",
+    url: absoluteUrl("/"),
+    type: "website",
+  },
+};
+
+const GUIDE_SLUGS = [
+  "how-to-create-a-professional-invoice",
+  "what-should-an-invoice-include",
+  "invoice-vs-receipt",
+  "freelance-invoice-guide",
+];
 
 export default function HomePage() {
-  const [invoice, setInvoice] = useState(defaultInvoice());
-  const [downloading, setDownloading] = useState(false);
-  const previewRef = useRef(null);
-  const [mobileTab, setMobileTab] = useState("form");
-
-  const handleDownload = async () => {
-    if (!previewRef.current) return;
-    setDownloading(true);
-    try {
-      const html2canvas = (await import("html2canvas")).default;
-      const { jsPDF } = await import("jspdf");
-
-      const canvas = await html2canvas(previewRef.current, {
-        scale: 2,
-        backgroundColor: "#ffffff",
-        useCORS: true,
-      });
-
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "px",
-        format: [canvas.width, canvas.height],
-      });
-      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-      pdf.save(`${invoice.invoiceNumber || "invoice"}.pdf`);
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong while creating the PDF. Please try again.");
-    } finally {
-      setDownloading(false);
-    }
-  };
+  const featuredGuides = GUIDE_SLUGS.map((slug) =>
+    articles.find((a) => a.slug === slug)
+  ).filter(Boolean);
 
   return (
     <main className="min-h-screen">
-      <Header
-        right={
-          <>
-            <InstallAppButton />
-            <button
-              onClick={handleDownload}
-              disabled={downloading}
-              className="flex items-center gap-1.5 bg-stamp hover:bg-stamp-dark disabled:opacity-60 text-paper font-medium text-sm px-3 sm:px-5 py-2.5 rounded-md transition-colors shadow-sm whitespace-nowrap shrink-0"
-            >
-              <span aria-hidden="true">⬇</span>
-              <span className="hidden sm:inline">
-                {downloading ? "Preparing…" : "Download PDF"}
-              </span>
-            </button>
-          </>
-        }
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
       />
 
-      {/* Hero intro */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-10 pb-2">
-        <p className="font-mono text-xs uppercase tracking-[0.25em] text-stamp mb-3">
-          Free · No sign-up · Nothing leaves your browser
-        </p>
-        <h1 className="font-display text-3xl sm:text-4xl font-semibold text-ink max-w-2xl leading-tight">
-          Draft a professional invoice in minutes.
-        </h1>
-        <p className="text-ink-faint mt-3 max-w-xl">
-          Fill in your details on the left, watch the invoice take shape on
-          the right, then download it as a clean PDF — ready to send.
-        </p>
-      </div>
+      <InvoiceTool />
 
-      {/* Mobile tab switch */}
-      <div className="sm:hidden flex border-b border-ink/10 bg-paper">
-        {["form", "preview"].map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setMobileTab(tab)}
-            className={`flex-1 py-3 text-sm font-medium capitalize transition-colors ${
-              mobileTab === tab
-                ? "text-stamp border-b-2 border-stamp"
-                : "text-ink-faint"
-            }`}
-          >
-            {tab === "form" ? "Fill Details" : "Preview"}
-          </button>
-        ))}
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 grid grid-cols-1 sm:grid-cols-2 gap-10">
-        {/* Form panel */}
-        <section className={`${mobileTab === "form" ? "block" : "hidden"} sm:block`}>
-          <div className="bg-white/60 rounded-xl border border-ink/10 p-6 sm:p-8">
-            <InvoiceForm data={invoice} onChange={setInvoice} />
-          </div>
+      {/* SEO / educational content below the tool */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-14 sm:py-20 space-y-16">
+        <section>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">
+            How to Create an Invoice
+          </h2>
+          <ol className="list-decimal pl-5 space-y-2 text-ink-light leading-relaxed">
+            <li>
+              Enter your business details and your client's details at the
+              top of the form.
+            </li>
+            <li>
+              Set an invoice number, issue date, and due date so the invoice
+              is easy to track and reference later.
+            </li>
+            <li>
+              Add each line item with a description, quantity, and rate — the
+              subtotal is calculated automatically.
+            </li>
+            <li>
+              Apply tax or a discount if they apply, and add any notes about
+              payment terms or instructions.
+            </li>
+            <li>
+              Preview the result on the right, then click{" "}
+              <strong>Download PDF</strong> to save it to your device.
+            </li>
+          </ol>
         </section>
 
-        {/* Preview panel */}
-        <section
-          className={`${mobileTab === "preview" ? "block" : "hidden"} sm:block sm:sticky sm:top-24 self-start`}
-        >
-          <div className="overflow-x-auto no-print-scrollbar pb-4">
-            <InvoicePreview data={invoice} previewRef={previewRef} />
+        <section>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">
+            What Should an Invoice Include?
+          </h2>
+          <p className="text-ink-light leading-relaxed mb-4">
+            A complete invoice should include your business or sender
+            information, your client's information, an invoice number, the
+            issue and due dates, a description of each item or service
+            provided, quantity and rate for each line item, a subtotal, any
+            taxes or discounts, the total amount due, your payment terms, and
+            any relevant notes.
+          </p>
+          <p className="text-ink-light leading-relaxed">
+            For a closer look at each field and why it matters, read our
+            guide on{" "}
+            <Link
+              href="/blog/what-should-an-invoice-include"
+              className="text-stamp hover:text-stamp-dark underline"
+            >
+              what an invoice should include
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">
+            Who Can Use This Invoice Generator?
+          </h2>
+          <p className="text-ink-light leading-relaxed">
+            This tool works for anyone who bills clients directly —
+            freelancers, consultants, developers, designers, photographers,
+            and writers, as well as agencies, contractors, and small
+            businesses billing one or several clients. If you need to send a
+            clear, itemized invoice without setting up an accounting system,
+            it's built for that.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">
+            Why Use a Free Online Invoice Generator?
+          </h2>
+          <p className="text-ink-light leading-relaxed">
+            Building an invoice from scratch in a word processor or
+            spreadsheet takes time and often produces inconsistent results
+            between invoices. This tool handles the layout, math, and
+            formatting for you — you fill in the details, see the result
+            update live, and download a clean PDF in a couple of minutes,
+            without paying for software or creating an account.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">
+            Is My Invoice Data Stored?
+          </h2>
+          <p className="text-ink-light leading-relaxed">
+            No. The details you type into the invoice form — client
+            information, line items, amounts, notes — are processed entirely
+            in your browser to build the live preview and the downloaded
+            PDF. That data is not transmitted to or stored on our servers,
+            and it's cleared if you close or refresh the page. Like most
+            websites, this site may use standard analytics, and may in the
+            future display advertising (such as Google AdSense); those
+            systems operate independently of the invoice tool and are
+            described in full in our{" "}
+            <Link
+              href="/privacy-policy"
+              className="text-stamp hover:text-stamp-dark underline"
+            >
+              Privacy Policy
+            </Link>
+            .
+          </p>
+        </section>
+
+        <Faq />
+
+        <section>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">
+            Invoice Guides
+          </h2>
+          <p className="text-ink-light leading-relaxed mb-6">
+            A few practical guides if you want more detail on getting
+            invoices right.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {featuredGuides.map((g) => (
+              <Link
+                key={g.slug}
+                href={`/blog/${g.slug}`}
+                className="block bg-white/60 border border-ink/10 rounded-lg p-4 hover:border-stamp/40 hover:bg-white transition-colors"
+              >
+                <p className="text-sm font-medium text-ink leading-snug mb-1">
+                  {g.title}
+                </p>
+                <p className="text-xs text-ink-faint leading-relaxed">
+                  {g.description}
+                </p>
+              </Link>
+            ))}
           </div>
+          <Link
+            href="/blog"
+            className="inline-block mt-4 text-sm text-stamp hover:text-stamp-dark underline"
+          >
+            View all guides →
+          </Link>
         </section>
       </div>
 

@@ -1,15 +1,17 @@
 import PageShell from "@/components/PageShell";
+import { absoluteUrl } from "@/lib/siteConfig";
 
 export const metadata = {
   title: "Terms of Service",
   description:
     "Read the terms and conditions for using Ledger, the free online invoice maker.",
+  alternates: { canonical: absoluteUrl("/terms") },
 };
 
 export default function TermsPage() {
   return (
     <PageShell eyebrow="Legal" title="Terms of Service">
-      <p className="text-sm text-ink-faint">Last updated: July 2026</p>
+      <p className="text-sm text-ink-faint">Last updated: September 8, 2026</p>
 
       <p>
         Welcome to Ledger. By accessing or using this website and invoice

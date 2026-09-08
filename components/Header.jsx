@@ -5,11 +5,10 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
+  { href: "/", label: "Invoice Generator" },
+  { href: "/blog", label: "Guides" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: "/privacy-policy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
 ];
 
 export default function Header({ right }) {
@@ -24,7 +23,7 @@ export default function Header({ right }) {
             <span className="font-display text-paper text-base sm:text-lg font-semibold">L</span>
           </div>
           <div className="min-w-0">
-            <p className="font-display text-base sm:text-lg font-semibold leading-none truncate">Ledger</p>
+            <p className="font-display text-base sm:text-lg font-semibold leading-tight truncate">Ledger</p>
             <p className="hidden sm:block font-mono text-[0.62rem] text-ink-faint uppercase tracking-[0.2em]">
               Invoice Maker
             </p>
@@ -39,9 +38,8 @@ export default function Header({ right }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  isActive ? "text-ink" : "text-ink-faint hover:text-ink"
-                }`}
+                className={`relative px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive ? "text-ink" : "text-ink-faint hover:text-ink"
+                  }`}
               >
                 {link.label}
                 {isActive && (
@@ -56,7 +54,10 @@ export default function Header({ right }) {
         </nav>
 
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-          {right}
+          {/* Desktop/tablet: right content stays in top bar */}
+          <div className="hidden lg:flex items-center gap-1.5 sm:gap-3">
+            {right}
+          </div>
 
           {/* Mobile menu toggle */}
           <button
@@ -89,14 +90,20 @@ export default function Header({ right }) {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`py-2.5 text-sm font-medium border-b border-dashed border-ink/10 last:border-b-0 transition-colors ${
-                    isActive ? "text-stamp" : "text-ink-faint hover:text-ink"
-                  }`}
+                  className={`py-2.5 text-sm font-medium border-b border-dashed border-ink/10 last:border-b-0 transition-colors ${isActive ? "text-stamp" : "text-ink-faint hover:text-ink"
+                    }`}
                 >
                   {link.label}
                 </Link>
               );
             })}
+
+            {/* Right content (install/download) below the links on mobile */}
+            {right && (
+              <div className="pt-3 flex items-center gap-2">
+                {right}
+              </div>
+            )}
           </div>
         </nav>
       )}

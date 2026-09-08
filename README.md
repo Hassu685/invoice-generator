@@ -1,65 +1,76 @@
-# Ledger — Invoice Maker (Next.js)
+# Ledger — Free Invoice Generator
 
-A responsive invoice generator where users fill in their details, see a live
-preview, and download a ready-to-send PDF — all directly in the browser.
-No data is ever saved on a server.
+Ledger is a browser-based invoice generator built with Next.js, React, and Tailwind CSS. Users can create an invoice, preview it live, and download a PDF without creating an account.
 
-## Theme
-"Ledger & Ink" — paper-cream background, deep navy ink, and an emerald/gold
-stamp accent (switchable from the form).
+## AdSense-readiness
 
-## Setup (on your own computer)
+This project has been prepared for an AdSense review, but **approval can never be guaranteed by code alone**. Before submitting the site to Google, complete the production checklist below.
 
-```bash
-npm install
-npm run dev
+### Included in this build
+
+- Original homepage copy explaining the tool and how it works
+- FAQ section with visible answers and matching structured data
+- About and Contact pages
+- Privacy Policy and Terms of Service
+- Eight original invoicing guides under `/blog`
+- Article metadata, canonical URLs, Open Graph data, Article and BreadcrumbList structured data
+- Dynamic `sitemap.xml` and `robots.txt`
+- Centralized production URL/contact configuration
+- Safe AdSense component that renders only when a real client ID and ad slot are configured
+- `ads.txt` placeholder that deliberately does **not** publish a fake publisher ID
+- Responsive navigation and accessible form labels/focus states
+- Existing invoice/PDF functionality preserved
+
+## Production setup
+
+1. Copy `.env.example` to `.env.local`.
+2. Set `NEXT_PUBLIC_SITE_URL` to the exact live HTTPS domain.
+3. Set `NEXT_PUBLIC_CONTACT_EMAIL` to an inbox you actually monitor.
+4. Run `npm install` and `npm run build` locally.
+5. Deploy the production build.
+6. Open and test `/`, `/about`, `/contact`, `/privacy-policy`, `/terms`, `/blog`, and every guide URL.
+7. Verify `/sitemap.xml`, `/robots.txt`, and `/ads.txt` on the live domain.
+8. Add the live site to Google Search Console and make sure important pages can be crawled/indexed.
+9. Apply to Google AdSense from the AdSense dashboard and connect the site using Google's supplied code.
+10. After Google provides your publisher ID, replace the placeholder in `public/ads.txt` with the exact line Google gives you.
+11. Add real ad slot IDs through environment variables before displaying ads.
+
+## AdSense configuration
+
+The AdSense script is loaded only when `NEXT_PUBLIC_ADSENSE_CLIENT` is set. The article ad component also requires `NEXT_PUBLIC_ADSENSE_ARTICLE_SLOT`.
+
+Example:
+
+```env
+NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-1234567890123456
+NEXT_PUBLIC_ADSENSE_ARTICLE_SLOT=1234567890
 ```
 
-Then open `http://localhost:3000` in your browser.
+Do not use example IDs in production. Do not place ads so they can be mistaken for navigation, download controls, form fields, or other interactive elements. Do not encourage visitors to click ads.
 
-## Production build
+If you receive traffic from regions where Google requires consent-management configuration, configure the appropriate Google-supported consent solution in AdSense before serving personalized advertising there. Do not create a fake consent banner merely for appearance.
+
+## Privacy accuracy
+
+Ledger's invoice editor and PDF generation run in the browser. That does not mean the website collects no information at all: hosting, advertising, analytics, or other third-party services can process technical information depending on what is enabled. Keep the Privacy Policy synchronized with the actual production configuration.
+
+The Contact form opens the visitor's email application; it does not submit contact data to a Ledger backend.
+
+## Important review checklist
+
+- Use a real domain and real contact email.
+- Remove every placeholder such as `YOUR-DOMAIN.com` before applying.
+- Make sure the site is publicly accessible and not password-protected.
+- Keep the eight guides original, useful, readable, and free of copied/spun text.
+- Do not add thin pages solely to increase page count.
+- Keep legal pages easy to find from the footer.
+- Test mobile navigation, invoice editing, PDF download, and contact email behavior.
+- Keep the Privacy Policy truthful if analytics, ads, cookies, or other third-party services change.
+
+## Scripts
 
 ```bash
+npm run dev
 npm run build
 npm run start
 ```
-
-## Features
-- From / To details, multiple line items (add/remove)
-- Automatic Tax % and Discount % calculation
-- Currency selector (PKR, USD, EUR, GBP, AED, SAR, INR)
-- 3 accent themes (Emerald Ink, Ledger Gold, Deep Navy)
-- Fully responsive — form/preview switch into tabs on mobile
-- One-click PDF download (html2canvas + jsPDF)
-- Installable as a Progressive Web App (PWA) on desktop and mobile,
-  with offline support via a service worker
-- About, Contact, Privacy Policy, and Terms of Service pages
-- SEO metadata, `robots.txt`, and an auto-generated `sitemap.xml`
-
-## Folder structure
-```
-app/              -> Next.js App Router pages (page.jsx, layout.jsx, globals.css)
-app/about/        -> About page
-app/contact/      -> Contact page
-app/privacy-policy/ -> Privacy Policy page
-app/terms/        -> Terms of Service page
-app/sitemap.js    -> Auto-generated sitemap
-components/       -> InvoiceForm, InvoicePreview, Footer, PageShell,
-                     InstallAppButton, RegisterServiceWorker, ContactForm
-lib/types.js      -> Invoice data helpers and totals calculation
-public/           -> manifest.json, service worker (sw.js), icons, robots.txt
-```
-
-## Before you deploy
-- Replace `hello@example.com` in `components/ContactForm.jsx` and the
-  Contact page with your real support email address.
-- Replace `https://example.com` in `app/layout.jsx` (`metadataBase`),
-  `app/sitemap.js`, and `public/robots.txt` with your actual domain.
-- Add your Google AdSense verification snippet / `ads.txt` file once your
-  AdSense account is approved.
-
-## Customize
-- To change colors, edit the `stamp`, `gold`, `ink`, and `paper` colors in
-  `tailwind.config.js`.
-- Fonts are loaded in `app/layout.jsx` (Fraunces + IBM Plex Sans/Mono).
-- App icons live in `public/icons/` — regenerate them if you change the logo.

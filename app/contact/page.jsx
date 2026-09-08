@@ -1,10 +1,19 @@
 import PageShell from "@/components/PageShell";
 import ContactForm from "@/components/ContactForm";
+import { siteConfig, absoluteUrl } from "@/lib/siteConfig";
 
 export const metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with the Ledger team for support, feedback, or partnership questions.",
+    "Get in touch with the Ledger team for support, feedback, or questions about the free invoice generator.",
+  alternates: { canonical: absoluteUrl("/contact") },
+  openGraph: {
+    title: "Contact Us | Ledger",
+    description:
+      "Get in touch with the Ledger team for support, feedback, or questions about the free invoice generator.",
+    url: absoluteUrl("/contact"),
+    type: "website",
+  },
 };
 
 export default function ContactPage() {
@@ -12,13 +21,13 @@ export default function ContactPage() {
     <PageShell eyebrow="Get In Touch" title="Contact Us">
       <p>
         Have a question, found a bug, or want to suggest a feature? We read
-        every message. Fill out the form below and it will open your email
-        client with your message ready to send — or email us directly at{" "}
+        every message. Fill out the form below — it opens your email app
+        with your message ready to send — or email us directly at{" "}
         <a
-          href="mailto:hello@example.com"
+          href={`mailto:${siteConfig.contactEmail}`}
           className="text-stamp hover:text-stamp-dark underline"
         >
-          hello@example.com
+          {siteConfig.contactEmail}
         </a>
         .
       </p>

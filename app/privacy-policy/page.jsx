@@ -1,15 +1,18 @@
+import Link from "next/link";
 import PageShell from "@/components/PageShell";
+import { absoluteUrl } from "@/lib/siteConfig";
 
 export const metadata = {
   title: "Privacy Policy",
   description:
     "Read Ledger's privacy policy to understand what data we collect, how cookies and advertising work on this site, and your choices.",
+  alternates: { canonical: absoluteUrl("/privacy-policy") },
 };
 
 export default function PrivacyPolicyPage() {
   return (
     <PageShell eyebrow="Legal" title="Privacy Policy">
-      <p className="text-sm text-ink-faint">Last updated: July 2026</p>
+      <p className="text-sm text-ink-faint">Last updated: September 8, 2026</p>
 
       <p>
         This Privacy Policy explains how Ledger ("we", "our", "us") handles

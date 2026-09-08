@@ -61,7 +61,7 @@ export default function InstallAppButton() {
         aria-label="Install app"
       >
         <span aria-hidden="true">⭳</span>
-        <span className="hidden sm:inline">Install App</span>
+        <span>Install App</span>
       </button>
 
       {showIOSHint && (

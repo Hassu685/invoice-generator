@@ -1,0 +1,6 @@
+# Google AdSense ads.txt
+#
+# Do not publish a made-up publisher ID. After Google gives you your real
+# AdSense publisher ID, replace this comment with the exact ads.txt line
+# shown in your AdSense account, for example:
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

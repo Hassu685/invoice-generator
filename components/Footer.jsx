@@ -19,7 +19,10 @@ export default function Footer() {
 
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-faint">
             <Link href="/" className="hover:text-stamp transition-colors">
-              Home
+              Invoice Generator
+            </Link>
+            <Link href="/blog" className="hover:text-stamp transition-colors">
+              Guides
             </Link>
             <Link href="/about" className="hover:text-stamp transition-colors">
               About
@@ -38,7 +41,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-dashed border-ink/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-ink-faint font-mono">
           <p>© {new Date().getFullYear()} Ledger. All rights reserved.</p>
-          <p>Every invoice is generated in your browser — no data is ever sent to a server.</p>
+          <p>Your invoice details are processed in your browser and are not stored on our servers.</p>
         </div>
       </div>
     </footer>
