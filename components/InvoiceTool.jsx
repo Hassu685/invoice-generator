@@ -42,24 +42,29 @@ export default function InvoiceTool() {
     }
   };
 
+  // Download button ko alag se nikala taaki Header mobile par isse
+  // hamburger ke barabar me render kar sake.
+  const downloadButton = (
+    <button
+      onClick={handleDownload}
+      disabled={downloading}
+      className="flex items-center gap-1.5 bg-stamp hover:bg-stamp-dark disabled:opacity-60 text-paper font-medium text-sm px-3 sm:px-5 py-2.5 rounded-md transition-colors shadow-sm whitespace-nowrap shrink-0"
+    >
+      <span aria-hidden="true">⬇</span>
+      <span>{downloading ? "Preparing…" : "Download PDF"}</span>
+    </button>
+  );
+
   return (
     <>
       <Header
         right={
           <>
             <InstallAppButton />
-            <button
-              onClick={handleDownload}
-              disabled={downloading}
-              className="flex items-center gap-1.5 bg-stamp hover:bg-stamp-dark disabled:opacity-60 text-paper font-medium text-sm px-3 sm:px-5 py-2.5 rounded-md transition-colors shadow-sm whitespace-nowrap shrink-0"
-            >
-              <span aria-hidden="true">⬇</span>
-              <span>
-                {downloading ? "Preparing…" : "Download PDF"}
-              </span>
-            </button>
+            {downloadButton}
           </>
         }
+        downloadButton={downloadButton}
       />
 
       {/* Hero intro */}
@@ -84,11 +89,10 @@ export default function InvoiceTool() {
           <button
             key={tab}
             onClick={() => setMobileTab(tab)}
-            className={`flex-1 py-3 text-sm font-medium capitalize transition-colors ${
-              mobileTab === tab
+            className={`flex-1 py-3 text-sm font-medium capitalize transition-colors ${mobileTab === tab
                 ? "text-stamp border-b-2 border-stamp"
                 : "text-ink-faint"
-            }`}
+              }`}
           >
             {tab === "form" ? "Fill Details" : "Preview"}
           </button>

@@ -11,7 +11,10 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function Header({ right }) {
+// right         -> Install App + Download button dono (desktop top bar me dikhega)
+// downloadButton -> sirf Download button (mobile par hamburger ke barabar me)
+// mobileExtra    -> sirf Install App (mobile dropdown panel me, Download dobara nahi dikhega)
+export default function Header({ right, downloadButton, mobileExtra }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -54,10 +57,17 @@ export default function Header({ right }) {
         </nav>
 
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-          {/* Desktop/tablet: right content stays in top bar */}
+          {/* Desktop/tablet: dono buttons (Install App + Download) top bar me hi rahenge */}
           <div className="hidden lg:flex items-center gap-1.5 sm:gap-3">
             {right}
           </div>
+
+          {/* Mobile: sirf Download button hamburger ke barabar me */}
+          {downloadButton && (
+            <div className="lg:hidden flex items-center">
+              {downloadButton}
+            </div>
+          )}
 
           {/* Mobile menu toggle */}
           <button
@@ -98,10 +108,10 @@ export default function Header({ right }) {
               );
             })}
 
-            {/* Right content (install/download) below the links on mobile */}
-            {right && (
+            {/* Sirf Install App yahan (Download upar hamburger ke sath chala gaya, dobara nahi dikhega) */}
+            {mobileExtra && (
               <div className="pt-3 flex items-center gap-2">
-                {right}
+                {mobileExtra}
               </div>
             )}
           </div>
