@@ -26,6 +26,14 @@ export default function InvoiceTool() {
         useCORS: true,
       });
 
+      // Safety check: agar canvas 0-size bana, to yahin pakad lo
+      // (pehle ye silently fail ho ke generic alert de deta tha)
+      if (!canvas.width || !canvas.height) {
+        throw new Error(
+          `Invalid canvas size: ${canvas.width}x${canvas.height}. Preview element likely not visible/rendered.`
+        );
+      }
+
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
         orientation: "portrait",
@@ -35,7 +43,7 @@ export default function InvoiceTool() {
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
       pdf.save(`${invoice.invoiceNumber || "invoice"}.pdf`);
     } catch (err) {
-      console.error(err);
+      console.error("PDF generation failed:", err);
       alert("Something went wrong while creating the PDF. Please try again.");
     } finally {
       setDownloading(false);
@@ -89,10 +97,11 @@ export default function InvoiceTool() {
           <button
             key={tab}
             onClick={() => setMobileTab(tab)}
-            className={`flex-1 py-3 text-sm font-medium capitalize transition-colors ${mobileTab === tab
+            className={`flex-1 py-3 text-sm font-medium capitalize transition-colors ${
+              mobileTab === tab
                 ? "text-stamp border-b-2 border-stamp"
                 : "text-ink-faint"
-              }`}
+            }`}
           >
             {tab === "form" ? "Fill Details" : "Preview"}
           </button>
@@ -100,16 +109,32 @@ export default function InvoiceTool() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 grid grid-cols-1 sm:grid-cols-2 gap-10">
-        {/* Form panel */}
-        <section className={`${mobileTab === "form" ? "block" : "hidden"} sm:block`}>
+        {/* Form panel — ye kabhi capture nahi hota, isliye hidden/block toggle theek hai */}
+        <section
+          className={`${mobileTab === "form" ? "block" : "hidden"} sm:block`}
+        >
           <div className="bg-white/60 rounded-xl border border-ink/10 p-6 sm:p-8">
             <InvoiceForm data={invoice} onChange={setInvoice} />
           </div>
         </section>
 
-        {/* Preview panel */}
+        {/*
+          Preview panel — YE hi html2canvas se capture hota hai.
+          IMPORTANT: yahan kabhi "hidden" (display:none) use mat karo,
+          warna html2canvas ko 0x0 size milta hai aur PDF banna fail
+          ho jata hai (yehi mobile wala bug tha).
+
+          Fix: mobile pe jab tab "preview" active nahi hai, to element
+          ko "fixed" karke screen se bahar (off-screen) bhej do —
+          display:block hi rahega, bas visually hidden. sm+ (desktop)
+          pe hamesha normal static position pe wapas aa jata hai.
+        */}
         <section
-          className={`${mobileTab === "preview" ? "block" : "hidden"} sm:block sm:sticky sm:top-24 self-start`}
+          className={`sm:sticky sm:top-24 self-start sm:static sm:w-auto sm:block ${
+            mobileTab === "preview"
+              ? "block"
+              : "fixed top-0 left-[-9999px] w-screen"
+          }`}
         >
           <div className="overflow-x-auto no-print-scrollbar pb-4">
             <InvoicePreview data={invoice} previewRef={previewRef} />
