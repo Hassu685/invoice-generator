@@ -3,26 +3,24 @@ import { articles } from "@/lib/blog";
 
 export default function sitemap() {
   const staticRoutes = [
-    { url: "", priority: 1, changeFrequency: "weekly" },
-    { url: "/about", priority: 0.6, changeFrequency: "monthly" },
-    { url: "/contact", priority: 0.5, changeFrequency: "monthly" },
-    { url: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
-    { url: "/terms", priority: 0.3, changeFrequency: "yearly" },
-    { url: "/blog", priority: 0.7, changeFrequency: "weekly" },
+    "",
+    "/about",
+    "/contact",
+    "/privacy-policy",
+    "/terms",
+    "/blog",
   ];
 
   const staticEntries = staticRoutes.map((route) => ({
-    url: absoluteUrl(route.url),
-    lastModified: new Date("2026-09-08"),
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
+    url: absoluteUrl(route),
+    lastModified: new Date("2026-09-19"),
   }));
 
   const articleEntries = articles.map((article) => ({
     url: absoluteUrl(`/blog/${article.slug}`),
-    lastModified: new Date(article.updatedAt || article.publishedAt),
-    changeFrequency: "monthly",
-    priority: 0.6,
+    lastModified: new Date(
+      article.updatedAt || article.publishedAt
+    ),
   }));
 
   return [...staticEntries, ...articleEntries];
