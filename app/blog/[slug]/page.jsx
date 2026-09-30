@@ -7,7 +7,10 @@ import {
   articles,
   getArticleBySlug,
   getRelatedArticles,
+  parseInline,
+  buildFaqSchema,
   AUTHOR,
+  SITE_NAME,
 } from "@/lib/blog";
 import { absoluteUrl, siteConfig } from "@/lib/siteConfig";
 
@@ -20,13 +23,16 @@ export function generateMetadata({ params }) {
   if (!article) return {};
 
   const url = absoluteUrl(`/blog/${article.slug}`);
+  // Article titles no longer contain the brand, so it is added here once.
+  // `absolute` prevents a double suffix if your layout has a title template.
+  const fullTitle = `${article.title} | ${SITE_NAME}`;
 
   return {
-    title: article.title,
+    title: { absolute: fullTitle },
     description: article.description,
     alternates: { canonical: url },
     openGraph: {
-      title: `${article.title} | Ledger`,
+      title: fullTitle,
       description: article.description,
       url,
       type: "article",
@@ -35,7 +41,7 @@ export function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary",
-      title: article.title,
+      title: fullTitle,
       description: article.description,
     },
   };
@@ -49,60 +55,125 @@ function formatDate(dateString) {
   });
 }
 
-function ArticleBlock({ block, index }) {
+// Renders text containing [anchor](/url) links.
+function Inline({ text }) {
+  return parseInline(text).map((part, i) => {
+    if (!part.href) return <span key={i}>{part.text}</span>;
+    const isInternal = part.href.startsWith("/");
+    return isInternal ? (
+      <Link
+        key={i}
+        href={part.href}
+        className="text-stamp underline underline-offset-2 hover:text-stamp-dark"
+      >
+        {part.text}
+      </Link>
+    ) : (
+      <a
+        key={i}
+        href={part.href}
+        className="text-stamp underline underline-offset-2 hover:text-stamp-dark"
+        rel="noopener noreferrer"
+      >
+        {part.text}
+      </a>
+    );
+  });
+}
+
+function ArticleBlock({ block }) {
   switch (block.type) {
     case "h2":
       return (
-        <h2
-          key={index}
-          className="font-display text-xl sm:text-2xl font-semibold text-ink mt-10 mb-3"
-        >
+        <h2 className="font-display text-xl sm:text-2xl font-semibold text-ink mt-10 mb-3">
           {block.text}
         </h2>
       );
     case "h3":
       return (
-        <h3
-          key={index}
-          className="font-display text-lg font-semibold text-ink mt-6 mb-2"
-        >
+        <h3 className="font-display text-lg font-semibold text-ink mt-6 mb-2">
           {block.text}
         </h3>
       );
     case "ul":
       return (
-        <ul key={index} className="list-disc pl-5 space-y-1.5 my-4">
+        <ul className="list-disc pl-5 space-y-1.5 my-4">
           {block.items.map((item, i) => (
             <li key={i} className="text-ink-light leading-relaxed">
-              {item}
+              <Inline text={item} />
             </li>
           ))}
         </ul>
       );
     case "ol":
       return (
-        <ol key={index} className="list-decimal pl-5 space-y-1.5 my-4">
+        <ol className="list-decimal pl-5 space-y-1.5 my-4">
           {block.items.map((item, i) => (
             <li key={i} className="text-ink-light leading-relaxed">
-              {item}
+              <Inline text={item} />
             </li>
           ))}
         </ol>
       );
     case "quote":
       return (
-        <blockquote
-          key={index}
-          className="border-l-2 border-stamp/50 pl-4 my-5 text-ink-light italic whitespace-pre-line"
-        >
+        <blockquote className="border-l-2 border-stamp/50 pl-4 my-5 text-ink-light italic whitespace-pre-line">
           {block.text}
         </blockquote>
+      );
+    case "table":
+      return (
+        <div className="my-6 overflow-x-auto rounded-lg border border-ink/10 bg-white/60">
+          <table className="w-full text-sm text-left">
+            {block.caption && (
+              <caption className="caption-top text-xs font-mono text-ink-faint px-4 py-2 text-left">
+                {block.caption}
+              </caption>
+            )}
+            <thead className="bg-ink/5 text-ink">
+              <tr>
+                {block.headers.map((h, i) => (
+                  <th key={i} scope="col" className="px-4 py-2.5 font-semibold">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, r) => (
+                <tr key={r} className="border-t border-ink/10">
+                  {row.map((cell, c) => (
+                    <td
+                      key={c}
+                      className={`px-4 py-2.5 text-ink-light ${c === 0 ? "font-medium text-ink" : ""
+                        }`}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    case "cta":
+      return (
+        <aside className="my-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-lg border border-stamp/30 bg-stamp/5 p-5">
+          <p className="text-ink font-medium leading-snug">{block.text}</p>
+          <Link
+            href={block.href || "/"}
+            className="inline-flex shrink-0 items-center justify-center bg-stamp hover:bg-stamp-dark text-paper font-medium text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm whitespace-nowrap"
+          >
+            {block.label || "Create a free invoice"} →
+          </Link>
+        </aside>
       );
     case "p":
     default:
       return (
-        <p key={index} className="text-ink-light leading-relaxed my-4">
-          {block.text}
+        <p className="text-ink-light leading-relaxed my-4">
+          <Inline text={block.text} />
         </p>
       );
   }
@@ -137,6 +208,8 @@ export default function BlogArticlePage({ params }) {
     ],
   };
 
+  const faqJsonLd = buildFaqSchema(article); // null if the article has no FAQ
+
   return (
     <main className="min-h-screen flex flex-col">
       <script
@@ -147,6 +220,12 @@ export default function BlogArticlePage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
 
       <Header
         right={
@@ -193,18 +272,12 @@ export default function BlogArticlePage({ params }) {
 
         <div>
           {article.content.map((block, i) => (
-            <ArticleBlock block={block} index={i} key={i} />
+            <ArticleBlock block={block} key={i} />
           ))}
         </div>
 
-        <div className="mt-10 pt-8 border-t border-dashed border-ink/10">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 bg-stamp hover:bg-stamp-dark text-paper font-medium text-sm px-5 py-2.5 rounded-md transition-colors shadow-sm"
-          >
-            Create a free invoice →
-          </Link>
-        </div>
+        {/* The old hard-coded "Create a free invoice" button was removed:
+            every article now ends with its own CTA block. */}
 
         <div className="mt-12">
           <AdUnit slot={process.env.NEXT_PUBLIC_ADSENSE_ARTICLE_SLOT} />
