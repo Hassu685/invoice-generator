@@ -5,21 +5,20 @@ import { articles } from "@/lib/blog";
 import { absoluteUrl, siteConfig } from "@/lib/siteConfig";
 
 export const metadata = {
-  title: "Invoicing Guides",
+  title: { absolute: "Invoicing Guides: Tips, Examples & Templates | Ledger" },
   description:
-    "Practical guides on invoicing — what to include, how to number invoices, freelance and small-business billing, and how to avoid common mistakes.",
+    "Free invoicing guides for freelancers and small businesses: what to include on an invoice, payment terms, numbering, email templates, and common mistakes.",
   alternates: {
     canonical: absoluteUrl("/blog"),
   },
   openGraph: {
-    title: "Invoicing Guides | Ledger",
+    title: "Invoicing Guides: Tips, Examples & Templates | Ledger",
     description:
-      "Practical guides on invoicing — what to include, how to number invoices, freelance and small-business billing, and how to avoid common mistakes.",
+      "Free invoicing guides for freelancers and small businesses: what to include on an invoice, payment terms, numbering, email templates, and common mistakes.",
     url: absoluteUrl("/blog"),
     type: "website",
   },
 };
-
 function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString("en-US", {
     year: "numeric",
