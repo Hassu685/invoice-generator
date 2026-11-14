@@ -6,12 +6,12 @@ import { articles } from "@/lib/blog";
 import { absoluteUrl, siteConfig } from "@/lib/siteConfig";
 
 export const metadata = {
-  title: "Free Invoice Generator — Create PDF Invoices Online | Ledger",
+  title: "Free Invoice Generator — Create PDF Invoices Online | Invoice Tools Hub",
   description:
     "Create professional invoices online for free, customize your invoice, and download it as a PDF without creating an account.",
   alternates: { canonical: absoluteUrl("/") },
   openGraph: {
-    title: "Free Invoice Generator — Create PDF Invoices Online | Ledger",
+    title: "Free Invoice Generator — Create PDF Invoices Online | Invoice Tools Hub",
     description:
       "Create professional invoices online for free, customize your invoice, and download it as a PDF without creating an account.",
     url: absoluteUrl("/"),

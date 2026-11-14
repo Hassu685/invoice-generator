@@ -5,7 +5,7 @@ import { absoluteUrl } from "@/lib/siteConfig";
 export const metadata = {
   title: "Privacy Policy",
   description:
-    "Read Ledger's privacy policy to understand what data we collect, how cookies and advertising work on this site, and your choices.",
+    "Read Invoice Tools Hub's privacy policy to understand what data we collect, how cookies and advertising work on this site, and your choices.",
   alternates: { canonical: absoluteUrl("/privacy-policy") },
 };
 
@@ -15,9 +15,9 @@ export default function PrivacyPolicyPage() {
       <p className="text-sm text-ink-faint">Last updated: September 8, 2026</p>
 
       <p>
-        This Privacy Policy explains how Ledger ("we", "our", "us") handles
+        This Privacy Policy explains how Invoice Tools Hub ("we", "our", "us") handles
         information when you use this website and invoice-making tool (the
-        "Service"). We built Ledger to work entirely in your browser, so we
+        "Service"). We built Invoice Tools Hub to work entirely in your browser, so we
         collect far less data than most web apps — but we still want to be
         completely transparent about what happens when you visit.
       </p>

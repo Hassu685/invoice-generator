@@ -35,7 +35,7 @@ export default function InvoicePreview({ data, previewRef }) {
         <span className="font-display text-[0.65rem] font-semibold uppercase tracking-widest leading-tight">
           {data.currency}
           <br />
-          Ledger
+          Invoice Tools Hub
         </span>
       </div>
 

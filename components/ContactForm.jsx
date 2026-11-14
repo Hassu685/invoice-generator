@@ -25,7 +25,7 @@ export default function ContactForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
-    const subject = encodeURIComponent(`Message from ${name || "Ledger user"}`);
+    const subject = encodeURIComponent(`Message from ${name || "Invoice Tools Hub user"}`);
     const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
     window.location.href = `mailto:${siteConfig.contactEmail}?subject=${subject}&body=${body}`;
   };

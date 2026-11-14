@@ -7,10 +7,10 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-ink flex items-center justify-center">
-              <span className="font-display text-paper text-sm font-semibold">L</span>
+              <span className="font-display text-paper text-sm font-semibold">I</span>
             </div>
             <div>
-              <p className="font-display text-sm font-semibold leading-none">Ledger</p>
+              <p className="font-display text-sm font-semibold leading-none">Invoice Tools Hub</p>
               <p className="font-mono text-[0.6rem] text-ink-faint uppercase tracking-[0.2em] mt-1">
                 Invoice Maker
               </p>
@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-dashed border-ink/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-ink-faint font-mono">
-          <p>© {new Date().getFullYear()} Ledger. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Invoice Tools Hub. All rights reserved.</p>
           <p>Your invoice details are processed in your browser and are not stored on our servers.</p>
         </div>
       </div>

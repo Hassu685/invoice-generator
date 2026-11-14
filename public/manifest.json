@@ -1,6 +1,6 @@
 {
-  "name": "Ledger — Invoice Maker",
-  "short_name": "Ledger",
+  "name": "Invoice Tools Hub — Invoice Maker",
+  "short_name": "Invoice Tools Hub",
   "description": "Create clean, professional invoices and download them as a PDF — right from your browser.",
   "start_url": "/",
   "scope": "/",

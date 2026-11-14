@@ -23,10 +23,10 @@ export default function Header({ right, downloadButton, mobileExtra }) {
       <div className="max-w-7xl mx-auto px-3 sm:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0 min-w-0" onClick={() => setOpen(false)}>
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-ink flex items-center justify-center shrink-0">
-            <span className="font-display text-paper text-base sm:text-lg font-semibold">L</span>
+            <span className="font-display text-paper text-base sm:text-lg font-semibold">I</span>
           </div>
           <div className="min-w-0">
-            <p className="font-display text-base sm:text-lg font-semibold leading-tight truncate">Ledger</p>
+            <p className="font-display text-base sm:text-lg font-semibold leading-tight truncate">Invoice Tools Hub</p>
             <p className="hidden sm:block font-mono text-[0.62rem] text-ink-faint uppercase tracking-[0.2em]">
               Invoice Maker
             </p>

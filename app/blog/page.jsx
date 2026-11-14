@@ -5,14 +5,14 @@ import { articles } from "@/lib/blog";
 import { absoluteUrl, siteConfig } from "@/lib/siteConfig";
 
 export const metadata = {
-  title: { absolute: "Invoicing Guides: Tips, Examples & Templates | Ledger" },
+  title: { absolute: "Invoicing Guides: Tips, Examples & Templates | Invoice Tools Hub" },
   description:
     "Free invoicing guides for freelancers and small businesses: what to include on an invoice, payment terms, numbering, email templates, and common mistakes.",
   alternates: {
     canonical: absoluteUrl("/blog"),
   },
   openGraph: {
-    title: "Invoicing Guides: Tips, Examples & Templates | Ledger",
+    title: "Invoicing Guides: Tips, Examples & Templates | Invoice Tools Hub",
     description:
       "Free invoicing guides for freelancers and small businesses: what to include on an invoice, payment terms, numbering, email templates, and common mistakes.",
     url: absoluteUrl("/blog"),

@@ -4,7 +4,7 @@ import { absoluteUrl } from "@/lib/siteConfig";
 export const metadata = {
   title: "Terms of Service",
   description:
-    "Read the terms and conditions for using Ledger, the free online invoice maker.",
+    "Read the terms and conditions for using Invoice Tools Hub, the free online invoice maker.",
   alternates: { canonical: absoluteUrl("/terms") },
 };
 
@@ -14,7 +14,7 @@ export default function TermsPage() {
       <p className="text-sm text-ink-faint">Last updated: September 8, 2026</p>
 
       <p>
-        Welcome to Ledger. By accessing or using this website and invoice
+        Welcome to Invoice Tools Hub. By accessing or using this website and invoice
         creation tool (the "Service"), you agree to be bound by these Terms
         of Service ("Terms"). If you do not agree with any part of these
         Terms, please do not use the Service.
@@ -24,7 +24,7 @@ export default function TermsPage() {
         1. Description of the Service
       </h2>
       <p>
-        Ledger is a free, browser-based tool that lets you create and
+        Invoice Tools Hub is a free, browser-based tool that lets you create and
         download invoices as PDF files. All invoice data is processed on
         your own device; the Service does not require an account and does
         not store your invoice content on any server.
@@ -35,7 +35,7 @@ export default function TermsPage() {
       </h2>
       <p>
         You agree to use the Service only for lawful purposes. You may not
-        use Ledger to create fraudulent, deceptive, or misleading invoices,
+        use Invoice Tools Hub to create fraudulent, deceptive, or misleading invoices,
         or to impersonate any person or business without authorization. You
         are solely responsible for the accuracy and legality of the content
         you enter into any invoice you create.
@@ -45,7 +45,7 @@ export default function TermsPage() {
         3. No professional advice
       </h2>
       <p>
-        Ledger is a formatting and calculation tool. It does not provide
+        Invoice Tools Hub is a formatting and calculation tool. It does not provide
         legal, tax, or accounting advice, and we make no guarantee that
         invoices created with the Service satisfy the legal or tax
         requirements of your jurisdiction. Please consult a qualified
@@ -66,7 +66,7 @@ export default function TermsPage() {
         5. Intellectual property
       </h2>
       <p>
-        The Ledger name, logo, design, and underlying code are owned by us
+        The Invoice Tools Hub name, logo, design, and underlying code are owned by us
         or our licensors and are protected by applicable intellectual
         property laws. You retain full ownership of the invoice content you
         create using the Service.

@@ -27,8 +27,8 @@ const plexMono = IBM_Plex_Mono({
 export const metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "Free Invoice Generator — Create PDF Invoices Online | Ledger",
-    template: "%s | Ledger",
+    default: "Free Invoice Generator — Create PDF Invoices Online | Invoice Tools Hub",
+    template: "%s | Invoice Tools Hub",
   },
   description: siteConfig.siteDescription,
   keywords: [
@@ -61,7 +61,7 @@ export const metadata = {
     apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "Free Invoice Generator — Create PDF Invoices Online | Ledger",
+    title: "Free Invoice Generator — Create PDF Invoices Online | Invoice Tools Hub",
     description: siteConfig.siteDescription,
     url: absoluteUrl("/"),
     type: "website",
@@ -69,7 +69,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Free Invoice Generator — Create PDF Invoices Online | Ledger",
+    title: "Free Invoice Generator — Create PDF Invoices Online | Invoice Tools Hub",
     description: siteConfig.siteDescription,
   },
 };

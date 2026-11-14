@@ -5,12 +5,12 @@ import { siteConfig, absoluteUrl } from "@/lib/siteConfig";
 export const metadata = {
   title: "About Us",
   description:
-    "Learn about Ledger, a free browser-based invoice maker built to help freelancers and small businesses create professional invoices in minutes.",
+    "Learn about Invoice Tools Hub, a free browser-based invoice maker built to help freelancers and small businesses create professional invoices in minutes.",
   alternates: { canonical: absoluteUrl("/about") },
   openGraph: {
-    title: "About Ledger",
+    title: "About Invoice Tools Hub",
     description:
-      "Learn about Ledger, a free browser-based invoice maker built to help freelancers and small businesses create professional invoices in minutes.",
+      "Learn about Invoice Tools Hub, a free browser-based invoice maker built to help freelancers and small businesses create professional invoices in minutes.",
     url: absoluteUrl("/about"),
     type: "website",
   },
@@ -18,9 +18,9 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <PageShell eyebrow="Our Story" title="About Ledger">
+    <PageShell eyebrow="Our Story" title="About Invoice Tools Hub">
       <p>
-        Ledger is a free, browser-based invoice maker built for freelancers,
+        Invoice Tools Hub is a free, browser-based invoice maker built for freelancers,
         consultants, small business owners, and anyone who needs to send a
         professional-looking invoice without wrestling with spreadsheets or
         expensive accounting software.
@@ -32,19 +32,19 @@ export default function AboutPage() {
       <p>
         Many independent workers and small teams don't need a full invoicing
         platform with logins, subscriptions, or recurring billing — they just
-        need to bill a client quickly and get paid. Ledger focuses on doing
+        need to bill a client quickly and get paid. Invoice Tools Hub focuses on doing
         that one job well, with a design that looks as good as a printed
         paper ledger and works just as reliably.
       </p>
 
       <h2 className="font-display text-xl font-semibold text-ink mt-8 mb-2">
-        Who Ledger is for
+        Who Invoice Tools Hub is for
       </h2>
       <p>
         Freelance designers, developers, writers, and photographers.
         Consultants and agencies billing multiple clients. Small shops and
         service providers who want an invoice that looks organized and
-        trustworthy. If that sounds like you, Ledger was made with you in
+        trustworthy. If that sounds like you, Invoice Tools Hub was made with you in
         mind.
       </p>
 
@@ -55,7 +55,7 @@ export default function AboutPage() {
         Everything happens directly in your browser. As you type into the
         form, the invoice preview updates instantly. When you click{" "}
         <strong>Download PDF</strong>, your browser renders the invoice and
-        saves it as a file on your own device. You can also install Ledger as
+        saves it as a file on your own device. You can also install Invoice Tools Hub as
         an app on your phone or desktop for quick, offline-friendly access to
         the tool itself.
       </p>

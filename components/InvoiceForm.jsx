@@ -4,7 +4,7 @@ import { emptyItem, emptyCustomer, currencySymbols } from "@/lib/types";
 
 const accentOptions = [
   { key: "stamp", label: "Emerald Ink", swatch: "#2E7D6B" },
-  { key: "gold", label: "Ledger Gold", swatch: "#C9A227" },
+  { key: "gold", label: "Classic Gold", swatch: "#C9A227" },
   { key: "ink", label: "Deep Navy", swatch: "#1C2541" },
 ];
 

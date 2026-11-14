@@ -5,12 +5,12 @@ import { siteConfig, absoluteUrl } from "@/lib/siteConfig";
 export const metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with the Ledger team for support, feedback, or questions about the free invoice generator.",
+    "Get in touch with the Invoice Tools Hub team for support, feedback, or questions about the free invoice generator.",
   alternates: { canonical: absoluteUrl("/contact") },
   openGraph: {
-    title: "Contact Us | Ledger",
+    title: "Contact Us | Invoice Tools Hub",
     description:
-      "Get in touch with the Ledger team for support, feedback, or questions about the free invoice generator.",
+      "Get in touch with the Invoice Tools Hub team for support, feedback, or questions about the free invoice generator.",
     url: absoluteUrl("/contact"),
     type: "website",
   },

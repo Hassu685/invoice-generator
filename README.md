@@ -1,6 +1,6 @@
-# Ledger — Free Invoice Generator
+# Invoice Tools Hub — Free Invoice Generator
 
-Ledger is a browser-based invoice generator built with Next.js, React, and Tailwind CSS. Users can create an invoice, preview it live, and download a PDF without creating an account.
+Invoice Tools Hub is a browser-based invoice generator built with Next.js, React, and Tailwind CSS. Users can create an invoice, preview it live, and download a PDF without creating an account.
 
 ## AdSense-readiness
 
@@ -52,9 +52,9 @@ If you receive traffic from regions where Google requires consent-management con
 
 ## Privacy accuracy
 
-Ledger's invoice editor and PDF generation run in the browser. That does not mean the website collects no information at all: hosting, advertising, analytics, or other third-party services can process technical information depending on what is enabled. Keep the Privacy Policy synchronized with the actual production configuration.
+Invoice Tools Hub's invoice editor and PDF generation run in the browser. That does not mean the website collects no information at all: hosting, advertising, analytics, or other third-party services can process technical information depending on what is enabled. Keep the Privacy Policy synchronized with the actual production configuration.
 
-The Contact form opens the visitor's email application; it does not submit contact data to a Ledger backend.
+The Contact form opens the visitor's email application; it does not submit contact data to a Invoice Tools Hub backend.
 
 ## Important review checklist
 
