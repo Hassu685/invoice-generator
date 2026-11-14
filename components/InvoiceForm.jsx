@@ -1,6 +1,7 @@
 "use client";
 
-import { emptyItem, emptyCustomer, currencySymbols } from "@/lib/types";
+import { useEffect } from "react";
+import { emptyItem, emptyCustomer, currencySymbols, todayDates } from "@/lib/types";
 
 const accentOptions = [
   { key: "stamp", label: "Emerald Ink", swatch: "#2E7D6B" },
@@ -9,6 +10,14 @@ const accentOptions = [
 ];
 
 export default function InvoiceForm({ data, onChange }) {
+  // Dates start empty so server and browser HTML match; fill them once in the browser.
+  useEffect(() => {
+    if (!data.issueDate && !data.dueDate) {
+      onChange({ ...data, ...todayDates() });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const set = (key, value) => {
     onChange({ ...data, [key]: value });
   };
@@ -39,11 +48,11 @@ export default function InvoiceForm({ data, onChange }) {
       data.customers.map((c) =>
         c.id === customerId
           ? {
-              ...c,
-              items: c.items.map((it) =>
-                it.id === itemId ? { ...it, ...patch } : it
-              ),
-            }
+            ...c,
+            items: c.items.map((it) =>
+              it.id === itemId ? { ...it, ...patch } : it
+            ),
+          }
           : c
       )
     );
@@ -92,21 +101,19 @@ export default function InvoiceForm({ data, onChange }) {
         <div className="flex flex-wrap gap-2 p-1 bg-white/60 rounded-lg border border-ink/10 w-fit max-w-full">
           <button
             onClick={() => setMode("single")}
-            className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
-              data.mode === "single"
+            className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${data.mode === "single"
                 ? "bg-stamp text-paper shadow-sm"
                 : "text-ink-faint hover:text-ink"
-            }`}
+              }`}
           >
             Single Customer
           </button>
           <button
             onClick={() => setMode("multiple")}
-            className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
-              data.mode === "multiple"
+            className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${data.mode === "multiple"
                 ? "bg-stamp text-paper shadow-sm"
                 : "text-ink-faint hover:text-ink"
-            }`}
+              }`}
           >
             Multiple Customers
           </button>
@@ -341,11 +348,10 @@ export default function InvoiceForm({ data, onChange }) {
             <button
               key={opt.key}
               onClick={() => set("accent", opt.key)}
-              className={`flex items-center gap-2 px-3 py-2 rounded-md border text-sm transition-all ${
-                data.accent === opt.key
+              className={`flex items-center gap-2 px-3 py-2 rounded-md border text-sm transition-all ${data.accent === opt.key
                   ? "border-ink shadow-sm bg-white"
                   : "border-transparent bg-white/50 hover:bg-white"
-              }`}
+                }`}
             >
               <span
                 className="w-3 h-3 rounded-full inline-block"
